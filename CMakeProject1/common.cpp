@@ -2,39 +2,39 @@
 
 std::thread StartMySqlTask()
 {
-	//Ò»·ÖÖÓÖ´ÐÐÒ»´ÎµÄ×ÓÏß³Ì
+	//Ò»ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ò»ï¿½Îµï¿½ï¿½ï¿½ï¿½ß³ï¿½
 	std::thread MySqlThread([&]() {
 		while (true)
 		{
-			MYSQL mysql;            //Êý¾Ý¿â¾ä±ú
-			MYSQL_RES* res = NULL;   //²éÑ¯½á¹û¼¯
-			MYSQL_ROW row;         //¼ÇÂ¼½á¹¹Ìå
+			MYSQL mysql;            //ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
+			MYSQL_RES* res = NULL;   //ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½
+			MYSQL_ROW row;         //ï¿½ï¿½Â¼ï¿½á¹¹ï¿½ï¿½
 
-			//³õÊ¼»¯Êý¾Ý¿â
+			//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			mysql_init(&mysql);
 
-			//ÉèÖÃ×Ö·û¼¯   "gbk"  ×Ö·û¼¯
+			//ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½   "gbk"  ï¿½Ö·ï¿½ï¿½ï¿½
 			mysql_options(&mysql, MYSQL_SET_CHARSET_NAME, "gbk");
 
-			//Á¬½ÓÊý¾Ý¿â
-			/* ln123456789   ÊÇÄãµÄÊý¾Ý¿âÃÜÂë     school ÊÇ´´½¨µÄÒ»¸öÊý¾Ý¿â,  µ±È»ÆäËû·Ñ²ÎÊýÊÇ¿ÉÒÔÐÞ¸ÄµÄ*/
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+			/* ln123456789   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½     school ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½,  ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½Þ¸Äµï¿½*/
 			if (mysql_real_connect(&mysql, "127.0.0.1", "root", "qwer1234", "db0625", 3306, NULL, 0) == NULL) {
-				printf("´íÎóÔ­Òò:%s\n", mysql_error(&mysql));
-				printf("Á¬½ÓÊ§°Ü!\n");
+				printf("ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½:%s\n", mysql_error(&mysql));
+				printf("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½!\n");
 				exit(-1);
 			}
-			else {
-				printf("Á¬½Ó³É¹¦\n");
+			else { 
+				printf("ï¿½ï¿½ï¿½Ó³É¹ï¿½\n");
 			}
-			//²éÑ¯Êý¾Ý
-			// »ñÈ¡µ±Ç°ÈÕÆÚ
+			//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+			// ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 			std::time_t currentTime = std::time(nullptr);
 			std::tm* localTime = std::localtime(&currentTime);
-			int year = localTime->tm_year + 1900; // Äê·ÝÐèÒª¼ÓÉÏ 1900
-			int month = localTime->tm_mon + 1; // ÔÂ·Ý·¶Î§Îª 0-11£¬ÐèÒª¼Ó 1
+			int year = localTime->tm_year + 1900; // ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ 1900
+			int month = localTime->tm_mon + 1; // ï¿½Â·Ý·ï¿½Î§Îª 0-11ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ 1
 			int day = localTime->tm_mday;
 
-			// Æ´½Ó²éÑ¯Óï¾ä
+			// Æ´ï¿½Ó²ï¿½Ñ¯ï¿½ï¿½ï¿½
 			std::stringstream ss;
 			ss << "SELECT msg FROM table_" << year << "_" << month << "_" << day;
 			std::string sql = ss.str();
@@ -43,7 +43,7 @@ std::thread StartMySqlTask()
 			int ret = mysql_query(&mysql, sql.c_str());
 			printf("ret :%d\n", ret);
 
-			//»ñÈ¡½á¹û¼¯
+			//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½
 			res = mysql_store_result(&mysql);
 
 			boost::unique_lock<boost::shared_mutex> lock(logMutex);
@@ -55,10 +55,10 @@ std::thread StartMySqlTask()
 
 				if (this_ofs.is_open())
 				{
-					// ÖðÐÐÐ´Èë½á¹ûµ½ÎÄ¼þ
+					// ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 					while ((row = mysql_fetch_row(res)))
 					{
-						this_ofs << row[0] << "\n"; // ½«½á¹ûÐ´ÈëÎÄ¼þ
+						this_ofs << row[0] << "\n"; // ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä¼ï¿½
 					}
 					this_ofs.close();
 					std::cout << "Results written to file." << std::endl;
@@ -67,7 +67,7 @@ std::thread StartMySqlTask()
 				{
 					std::cout << "Failed to open file for writing." << std::endl;
 				}
-				//ÊÍ·Å½á¹û¼¯
+				//ï¿½Í·Å½ï¿½ï¿½ï¿½ï¿½
 				mysql_free_result(res);
 			}
 			else
@@ -75,36 +75,36 @@ std::thread StartMySqlTask()
 				std::cout << "Failed to get result." << std::endl;
 			}
 
-			// »ñÈ¡¹ýÍùÈýÌìµÄÈÕÆÚ
+			// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			std::tm pastTime = *localTime;
-			pastTime.tm_mday -= 3; // ¼õÈ¥3Ìì
+			pastTime.tm_mday -= 3; // ï¿½ï¿½È¥3ï¿½ï¿½
 			std::mktime(&pastTime);
 
-			// ²éÑ¯¹ýÍùÈýÌìµÄÊý¾Ý
+			// ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			std::ofstream all_ofs("test_log/all.log", std::ios::out | std::ios::trunc);
 			if (all_ofs.is_open())
 			{
 				for (int i = 0; i < 3; ++i)
 				{
-					pastTime.tm_mday += 1; // µÝÔöÈÕÆÚ
+					pastTime.tm_mday += 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					std::mktime(&pastTime);
 
-					// Æ´½Ó²éÑ¯Óï¾ä
+					// Æ´ï¿½Ó²ï¿½Ñ¯ï¿½ï¿½ï¿½
 					std::stringstream ss;
 					ss << "SELECT msg FROM table_" << pastTime.tm_year + 1900 << "_" << pastTime.tm_mon + 1 << "_" << pastTime.tm_mday;
 					std::string sql = ss.str();
 
-					// Ö´ÐÐ²éÑ¯Óï¾ä
+					// Ö´ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½
 					if (mysql_query(&mysql, sql.c_str()) == 0)
 					{
-						// »ñÈ¡½á¹û¼¯
+						// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½
 						res = mysql_store_result(&mysql);
 						if (res != nullptr)
 						{
-							// ÖðÐÐÐ´Èë½á¹ûµ½ÎÄ¼þ
+							// ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 							while ((row = mysql_fetch_row(res)))
 							{
-								all_ofs << row[0] << "\n"; // ½«½á¹ûÐ´ÈëÎÄ¼þ
+								all_ofs << row[0] << "\n"; // ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä¼ï¿½
 							}
 							mysql_free_result(res);
 						}
@@ -121,7 +121,7 @@ std::thread StartMySqlTask()
 
 			lock.unlock();
 
-			//¹Ø±ÕÊý¾Ý¿â
+			//ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 			mysql_close(&mysql);
 
 

@@ -1,6 +1,7 @@
 #include "HttpServer.h"
-
-
+#include <functional>
+#include <iostream>
+#include <utility>
 
 void HttpServer::readDistDirecrotyInfo(std::list<std::string>& fileInfoList)
 {
@@ -58,7 +59,7 @@ void HttpServer::processFilename(std::string& filename, const std::list<std::str
             }
         }
 
-        //Èç¹ûÊÇÀ­È¡log,Ôò×ßÕâÀï
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡log,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 }
 
@@ -178,8 +179,9 @@ void HttpServer::StartWebService()
             std::cout << "accepted" << std::endl;
 
             // Create a new thread for each incoming connection
-            std::thread t(&HttpServer::handleRequest, this, std::move(socket));
-            t.detach();
+            std::thread t(&HttpServer::handleRequest, this, std::ref(socket));
+            //t.detach();
+            t.join();
         }
     }
     catch (const boost::system::system_error& ex)
@@ -196,7 +198,7 @@ void HttpServer::CloseWebService()
 
 void HttpServer::handleRequest(ip::tcp::socket& socket)
 {
-    std::cout << "start thread : " << std::this_thread::get_id() << std::endl;
+    //std::cout << "start thread : " << std::this_thread::get_id() << std::endl;
 
     boost::asio::streambuf request;
     boost::system::error_code ec;
@@ -277,5 +279,5 @@ void HttpServer::handleRequest(ip::tcp::socket& socket)
     }
 
     socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
-    std::cout << "close thread : " << std::this_thread::get_id() << std::endl;
+    //std::cout << "close thread : " << std::this_thread::get_id() << std::endl;
 }
