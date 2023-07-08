@@ -5,11 +5,12 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include <iostream>
-#include<mysql.h>
+#include <mysql.h>
 #include <boost/thread/shared_mutex.hpp>
 #include <boost/thread/locks.hpp>
 #include <string>
 #include <fstream>
+#include <thread>
 
 using SystemConfig = struct ST_SYSTEM_CONFIG;
 extern boost::shared_mutex logMutex;

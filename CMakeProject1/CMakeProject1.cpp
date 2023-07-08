@@ -19,8 +19,11 @@ SystemConfig configNames;
 
 boost::shared_mutex logMutex;
 
+
 int main()
 {
+
+
     InitConfigMap(configMap, configNames);
     ReadSystemConfig(configMap, configNames);
     
@@ -30,7 +33,7 @@ int main()
     ZmqSubscriber subscriber(configMap.find(configNames.Get_ZEROMQ_IPC())->second, configMap.find(configNames.Get_ZEROMQ_TOPIC())->second);
     std::thread subThread(&ZmqSubscriber::StartSubscriberService, &subscriber);
 
-    //一分钟执行一次的子线程
+
     StartMySqlTask().join();
 
     webThread.join();
