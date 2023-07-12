@@ -1,7 +1,0 @@
-/home/cyz/local_repository/PPL_Cmake_Http_Server/CMakeProject1/build/CMakeFiles/HttpServer.dir
-/home/cyz/local_repository/PPL_Cmake_Http_Server/CMakeProject1/build/CMakeFiles/edit_cache.dir
-/home/cyz/local_repository/PPL_Cmake_Http_Server/CMakeProject1/build/CMakeFiles/rebuild_cache.dir
-/home/cyz/local_repository/PPL_Cmake_Http_Server/CMakeProject1/build/CMakeFiles/list_install_components.dir
-/home/cyz/local_repository/PPL_Cmake_Http_Server/CMakeProject1/build/CMakeFiles/install.dir
-/home/cyz/local_repository/PPL_Cmake_Http_Server/CMakeProject1/build/CMakeFiles/install/local.dir
-/home/cyz/local_repository/PPL_Cmake_Http_Server/CMakeProject1/build/CMakeFiles/install/strip.dir
