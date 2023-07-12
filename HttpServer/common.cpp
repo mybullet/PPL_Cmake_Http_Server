@@ -18,13 +18,14 @@ std::thread StartMySqlTask()
 
 			//�������ݿ�
 			/* ln123456789   ��������ݿ�����     school �Ǵ�����һ�����ݿ�,  ��Ȼ�����Ѳ����ǿ����޸ĵ�*/
-			if (mysql_real_connect(&mysql, "127.0.0.1", "root", "qwer1234", "db0625", 3306, NULL, 0) == NULL) {
-				printf("����ԭ��:%s\n", mysql_error(&mysql));
-				printf("����ʧ��!\n");
-				exit(-1);
+			if (mysql_real_connect(&mysql, "mysql-server", "root", "qwer1234", "db0625", 3306, NULL, 0) == NULL) {
+				printf("error code :%s\n", mysql_error(&mysql));
+				printf("fail connect mysql\n");
+				//exit(-1);
+				break;
 			}
 			else { 
-				printf("���ӳɹ�\n");
+				printf("success connect mysql\n");
 			}
 			//��ѯ����
 			// ��ȡ��ǰ����
